@@ -16,8 +16,6 @@ struct Remainder{
     int mm;
     int yy;
     char note[50];
-    char newDate[8];
-    int dmy[8];
 };
 struct Remainder R;
 
@@ -170,7 +168,7 @@ void print_date(int mm, int yy){ //prints the name of month and year
     gotoxy(20,7);
     printf("---------------------------");
 }
-int getDayNumber(int day,int mon,int year){ //retuns the day number
+int getDayNumber(int day,int mon,int year){ //returns the day number
     int res = 0, t1, t2, y = year;
     year = year - 1600;
     while(year >= 100){
@@ -313,7 +311,7 @@ void printMonth(int mon,int year,int x,int y){ //prints the month with all days
         printf("%02d",d);
         SetColorAndBackground(15,1);
     }
-    gotoxy(20, y+2);
+gotoxy(20, y+2);
     switch(mon){
     	case 1 :
     		printf("1st : Happy New Year!");
@@ -438,6 +436,7 @@ void printMonth(int mon,int year,int x,int y){ //prints the month with all days
     ClearColor();
 }
 
+
 void AddNote(){
     FILE *fp;
     fp = fopen("notee.txt","ab+");
@@ -458,33 +457,6 @@ void AddNote(){
         system("cls");
     }
     
-//    if(R.dd < 10){
-//    	dmy[0] = 0;
-//    	dmy[1] = R.dd;	
-//	}
-//	else{
-//		dmy[0] = R.dd / 10;
-//		dmy[1] = R.dd % 10;
-//	}
-//	if(R.mm < 10){
-//		dmy[2] = 0;
-//		dmy[3] = R.mm;
-//	}
-//	else{
-//		dmy[2] = R.mm / 10;
-//		dmy[3] = R.mm % 10;
-//	}
-//	if(R.yy < 2000){
-//		dmy[4] = R.yy / 1000;
-//		dmy[5] = (R.yy - 1000) / 100;
-//		dmy[6] = R.yy - ((dmy[4] * 1000) + (dmy[5] * 100)) / 10;
-//	}
-    
-//    int index = 0;
-//    for(index = 0; index < sizeof(dmy); index++){
-//    	dmy[index] = 
-//	}
-    
     //clear and print date input 
     system("cls");
     gotoxy(5,7);
@@ -495,9 +467,10 @@ void AddNote(){
     printf("Enter the Note : ");
     fflush(stdin);
     scanf("%[^\n]",R.note);
-//    fprintf(fp,"%d\t",R.dd);
-//    fprintf(fp,"%d\t",R.mm);
-//    fprintf(fp,"%d\t",R.yy);
+	    //fprintf(fp,"%d\t",R.dd);
+	    //fprintf(fp,"%d\t",R.mm);
+	    //fprintf(fp,"%d\t",R.yy);
+	    
     if(fwrite(&R,sizeof(R),1,fp)){
         gotoxy(5,12);
         puts("Note is saved sucessfully");

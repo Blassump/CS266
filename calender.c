@@ -198,18 +198,18 @@ int getDayNumber(int day,int mon,int year){ //returns the day number
 
 char *getDay(int dd,int mm,int yy){
     int day;
-    if(!(mm>=1 && mm<=12)){
+    if(!(mm >= 1 && mm <= 12)){
         return("Invalid month value");
     }
-    if(!(dd>=1 && dd<=getNumberOfDays(mm,yy))){
+    if(!(dd >= 1 && dd <= getNumberOfDays(mm, yy))){
         return("Invalid date");
     }
-    if(yy>=1600){
+    if(yy >= 1700 && yy <= 2500){
         day = getDayNumber(dd,mm,yy);
         day = day%7;
         return(getName(day));
     }else{
-        return("Please give year more than 1600");
+        return("Please give year between 1700 - 2500");
     }
 }
 
@@ -446,13 +446,13 @@ void AddNote(){
     //CHANGE IN PROJECT
     //must change if enter mai took format = noti
 
-    printf("Enter the date(DD MM YR): ");
+    printf("Enter the date(DD MM YYYY): ");
     scanf("%d%d%d",&R.dd, &R.mm, &R.yy );
     
     //check format date
     while(R.dd > 31 || R.dd < 1 || R.mm > 12 || R.mm < 1 || R.yy > 2500 || R.yy < 1700 ){
         gotoxy(5,7);
-        printf("INVALID Format! Please Enter The Date (DD MM YY):");
+        printf("INVALID Format! Please Enter The Date (DD MM YYYY):");
         scanf("%d%d%d",&R.dd, &R.mm, &R.yy);
         system("cls");
     }
@@ -551,6 +551,11 @@ int main(){
                 printf("Enter month and year (MM YYYY) : ");
                 scanf("%d %d",&date.mm,&date.yy);
                 system("cls");
+                while(date.mm > 12 || date.mm < 1 || date.yy > 2500 || date.yy < 1700 ){
+			        printf("INVALID Format! Please Enter month and year (MM YYYY) : ");
+			        scanf("%d %d",&date.mm,&date.yy);
+			        system("cls");
+			    }
                 while(ch!='q'){
                     printMonth(date.mm,date.yy,20,5);
                     ch = getch();

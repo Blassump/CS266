@@ -550,44 +550,76 @@ int main(){
         system("cls");
         switch(choice){
             case 1:
-            	printf("Enter date (DD MM YYYY) : ");
-                scanf("%d %d %d",&date.dd,&date.mm,&date.yy);
-                printf("Day is      : %s",getDay(date.dd,date.mm,date.yy));
-                    char buf[LEN];
-                    time_t curtime;
-                    struct tm *loc_time;
-                    curtime = time (NULL);
-                    loc_time = localtime (&curtime);
-                    strftime (buf, LEN, "\nSystem time : %I:%M %p.\n", loc_time);
-                    fputs (buf, stdout);
-                printf("\nPress any key to continue......");
-                getch();
+            	printf("Do you want to continue? (Press Y or N)");
+				ch = getch();
+            	system("cls");
+            	
+            	while(ch != 'N'){
+            		system("cls");
+				    //gotoxy(5,7);
+				    if(ch != 'Y'){
+					    printf("Invalid input (Press Y or N)");
+						ch = getch();	
+					}
+            		else{
+            		 	system("cls");
+						printf("Enter date (DD MM YYYY) : ");
+		                scanf("%d %d %d",&date.dd,&date.mm,&date.yy);
+		                printf("Day is      : %s",getDay(date.dd,date.mm,date.yy));
+	                	char buf[LEN];
+						time_t curtime;
+						struct tm *loc_time;
+						curtime = time (NULL);
+						loc_time = localtime (&curtime);
+						strftime (buf, LEN, "\nSystem time : %I:%M %p.\n", loc_time);
+						fputs (buf, stdout);
+		                printf("\nPress any key to continue......");
+		                getch();
+						break;
+					} 
+				}
                 break;
             case 2 :
-                printf("Enter month and year (MM YYYY) : ");
-                scanf("%d %d",&date.mm,&date.yy);
-                system("cls");
-                while(date.mm > 12 || date.mm < 1 || date.yy > 2500 || date.yy < 1700 ){
-			        printf("INVALID Format! Please Enter month and year (MM YYYY) : ");
-			        scanf("%d %d",&date.mm,&date.yy);
-			        system("cls");
-			    }
-                while(ch!='q'){
-                    printMonth(date.mm,date.yy,20,5);
-                    ch = getch();
-                    if(ch == 'n'){
-                        increase_month(&date.mm,&date.yy);
-                        system("cls");
-                        printMonth(date.mm,date.yy,20,5);
-                    }else if(ch == 'p'){
-                        decrease_month(&date.mm,&date.yy);
-                        system("cls");
-                        printMonth(date.mm,date.yy,20,5);
-                    }else if(ch == 's'){
-                        showNote(date.mm);
-                        system("cls");
-                    }
-                }
+            	printf("Do you want to continue? (Press Y or N)");
+				ch = getch();
+            	system("cls");
+            	
+            	while(ch != 'N'){
+            		system("cls");
+            		if(ch != 'Y'){
+					    printf("Invalid input (Press Y or N)");
+						ch = getch();	
+					}
+            		else{
+            			printf("Enter month and year (MM YYYY) : ");
+		                scanf("%d %d",&date.mm,&date.yy);
+		                system("cls");
+		                while(date.mm > 12 || date.mm < 1 || date.yy > 2500 || date.yy < 1700 ){
+					        printf("INVALID Format! Please Enter month and year (MM YYYY) : ");
+					        scanf("%d %d",&date.mm,&date.yy);
+					        system("cls");
+					    }
+		                while(ch!='q'){
+		                    printMonth(date.mm,date.yy,20,5);
+		                    ch = getch();
+		                    if(ch == 'n'){
+		                        increase_month(&date.mm,&date.yy);
+		                        system("cls");
+		                        printMonth(date.mm,date.yy,20,5);
+		                    }else if(ch == 'p'){
+		                        decrease_month(&date.mm,&date.yy);
+		                        system("cls");
+		                        printMonth(date.mm,date.yy,20,5);
+		                    }else if(ch == 's'){
+		                        showNote(date.mm);
+		                        system("cls");
+		                    }
+		                }
+						break;	
+					}
+            	
+				}
+                
                 break;
             case 3:
                 AddNote();

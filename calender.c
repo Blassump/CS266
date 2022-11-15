@@ -438,6 +438,7 @@ gotoxy(20, y+2);
 
 
 void AddNote(){
+	char ch1 = 'x';
     FILE *fp;
     fp = fopen("notee.txt","ab+");
     system("cls");
@@ -457,33 +458,48 @@ void AddNote(){
         system("cls");
     }
     
-    //clear and print date input 
-    system("cls");
     gotoxy(5,7);
-    //show date from input
-    printf("The date(DD MM YR): %d %d %d",R.dd,R.mm,R.yy);
+	printf("Do you want to continue? (Press Y or N)");
+	ch1 = getch();
 	
-    gotoxy(5,8);
-    printf("Enter the Note : ");
-    fflush(stdin);
-    scanf("%[^\n]",R.note);
-	    //fprintf(fp,"%d\t",R.dd);
-	    //fprintf(fp,"%d\t",R.mm);
-	    //fprintf(fp,"%d\t",R.yy);
+    while(ch1 != 'N'){
+	    //clear and print date input 
+	    system("cls");
+	    gotoxy(5,7);
+		printf("Invalid input (Press Y or N)");
+		ch1 = getch();
 	    
-    if(fwrite(&R,sizeof(R),1,fp)){
-        gotoxy(5,12);
-        puts("Note is saved sucessfully");
-        fclose(fp);
-    }else{
-        gotoxy(5,12);
-        SetColor(12);
-        puts("\aFail to save!!\a");
-        ClearColor();
-    }
-    gotoxy(5,15);
-    printf("Press any key............");
-    getch();
+		
+		if(ch1 == 'Y'){
+			system("cls");
+		    //show date from input
+			gotoxy(5,8);
+		    printf("The date(DD MM YR): %d %d %d",R.dd,R.mm,R.yy);	
+			gotoxy(5,9);
+		    printf("Enter the Note : ");
+		    fflush(stdin);
+		    scanf("%[^\n]",R.note);
+			    //fprintf(fp,"%d\t",R.dd);
+			    //fprintf(fp,"%d\t",R.mm);
+			    //fprintf(fp,"%d\t",R.yy);
+			    
+		    if(fwrite(&R,sizeof(R),1,fp)){
+		        gotoxy(5,13);
+		        puts("Note is saved sucessfully");
+		        fclose(fp);
+		    }else{
+		        gotoxy(5,13);
+		        SetColor(12);
+		        puts("\aFail to save!!\a");
+		        ClearColor();
+		    }
+		    gotoxy(5,16);
+		    printf("Press any key............");
+		    getch();
+		    break;
+		}
+	}
+    
     fclose(fp);
 }
 
@@ -534,16 +550,16 @@ int main(){
         system("cls");
         switch(choice){
             case 1:
-                printf("Enter date (DD MM YYYY) : ");
+            	printf("Enter date (DD MM YYYY) : ");
                 scanf("%d %d %d",&date.dd,&date.mm,&date.yy);
                 printf("Day is      : %s",getDay(date.dd,date.mm,date.yy));
-                	char buf[LEN];
-					time_t curtime;
-					struct tm *loc_time;
-					curtime = time (NULL);
-					loc_time = localtime (&curtime);
-					strftime (buf, LEN, "\nSystem time : %I:%M %p.\n", loc_time);
-					fputs (buf, stdout);
+                    char buf[LEN];
+                    time_t curtime;
+                    struct tm *loc_time;
+                    curtime = time (NULL);
+                    loc_time = localtime (&curtime);
+                    strftime (buf, LEN, "\nSystem time : %I:%M %p.\n", loc_time);
+                    fputs (buf, stdout);
                 printf("\nPress any key to continue......");
                 getch();
                 break;

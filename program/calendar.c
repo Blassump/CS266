@@ -215,10 +215,7 @@ char *getDay(int dd,int mm,int yy){
 
 int checkNote(int dd, int mm){
     FILE *fp;
-    fp = fopen("notee.txt","rb");
-    if(fp == NULL){
-        printf("Error in Opening the file");
-    }
+    fp = fopen("note.txt","rb");
     while(fread(&R,sizeof(R),1,fp) == 1){
         if(R.dd == dd && R.mm == mm){
             fclose(fp);
@@ -440,7 +437,7 @@ gotoxy(20, y+2);
 void AddNote(){
 	char ch1 = 'x';
     FILE *fp;
-    fp = fopen("notee.txt","ab+");
+    fp = fopen("note.txt","ab+");
     system("cls");
     gotoxy(5,7);
     
@@ -465,12 +462,13 @@ void AddNote(){
     while(ch1 != 'N'){
 	    //clear and print date input 
 	    system("cls");
-	    gotoxy(5,7);
-		printf("Invalid input (Press Y or N)");
-		ch1 = getch();
 	    
-		
-		if(ch1 == 'Y'){
+		if(ch1 != 'Y'){
+			gotoxy(5,7);
+			printf("Invalid input (Press Y or N)");
+			ch1 = getch();
+		}
+		else{
 			system("cls");
 		    //show date from input
 			gotoxy(5,8);
@@ -507,10 +505,7 @@ void showNote(int mm){
     FILE *fp;
     int i = 0, isFound = 0;
     system("cls");
-    fp = fopen("notee.txt","rb");
-    if(fp == NULL){
-        printf("Error in opening the file");
-    }
+    fp = fopen("note.txt","rb");
     while(fread(&R,sizeof(R),1,fp) == 1){
         if(R.mm == mm){
             gotoxy(10,5+i);
